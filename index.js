@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let aiY = 200;
 
   //variables which describe ball speed
-  let ballSpeedX = 1;
-  let ballSpeedY = 1;
+  let ballSpeedX = 5;
+  let ballSpeedY = 5;
 
   //function which draw player racket
   function player() {
@@ -50,6 +50,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillRect(ballX, ballY, ballSize, ballSize);
     ballX += ballSpeedX;
     ballY += ballSpeedY;
+
+    if(ballX <= 0 || ballX + ballSize >= cw) {
+      ballSpeedX = -ballSpeedX;
+    }
+
+    if(ballY <= 0 || ballY + ballSize >= ch) {
+      ballSpeedY = -ballSpeedY;
+    }
   }
 
   //function which draw table
