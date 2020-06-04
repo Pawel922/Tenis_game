@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let ballY = ch / 2 - ballSize / 2;
 
   //variables which describe rackets placement
-  let playerY = 200;
-  let aiY = 200;
+  let playerY = ch / 2 - racketHeight / 2;
+  let aiY = ch /2 - racketHeight / 2;
 
   //variables which describe ball speed
   let ballSpeedX = 5;
@@ -69,6 +69,20 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.fillRect(cw / 2 - lineWidth /2, linePosition, lineWidth, lineHeight);
     }
   }
+
+  function playerPosition(event) {
+    playerY = event.clientY - canvas.offsetTop - racketHeight / 2;
+
+    if(playerY >= ch - racketHeight) {
+      playerY = ch - racketHeight;
+    }
+
+    if(playerY <= 0) {
+      playerY = 0;
+    }
+  }
+
+  canvas.addEventListener("mousemove", playerPosition);
 
   function game() {
     table();
