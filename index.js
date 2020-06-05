@@ -68,20 +68,30 @@ document.addEventListener("DOMContentLoaded", function () {
     ballX += ballSpeedX;
     ballY += ballSpeedY;
 
+    //conditions when ball touches horizontal border
     if(ballX <= 0 || ballX + ballSize >= cw) {
       ballSpeedX = -ballSpeedX;
       speedUp(0.2);
     }
 
+    //conditions when ball touches vertical border
     if(ballY <= 0 || ballY + ballSize >= ch) {
       ballSpeedY = -ballSpeedY;
       speedUp(0.2);
     }
 
+    //conditions when ball touches player racket
     if(ballX <= playerX + racketWidth &&
-      ballY - playerY <= racketHeight &&
-      ballY - playerY >= -ballSize) {
+      ballY - playerY < racketHeight &&
+      ballY - playerY > -ballSize) {
         ballSpeedX = -ballSpeedX;
+    }
+
+    //conditions when ball touches ai rackets
+    if(aiX <= ballX + ballSize &&
+      ballY - aiY < racketHeight &&
+      ballY - aiY > -ballSize) {
+      ballSpeedX = -ballSpeedX;
     }
   }
 
@@ -108,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  //function which simulate ai movement
+  // function which simulate ai movement
   function aiPosition() {
     let ballCenter = ballY + ballSize / 2;
     let aiRacketCenter = aiY + racketHeight / 2;
