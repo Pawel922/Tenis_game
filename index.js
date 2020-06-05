@@ -77,7 +77,12 @@ document.addEventListener("DOMContentLoaded", function () {
       ballSpeedY = -ballSpeedY;
       speedUp(0.2);
     }
-    
+
+    if(ballX <= playerX + racketWidth &&
+      ballY - playerY <= racketHeight &&
+      ballY - playerY >= -ballSize) {
+        ballSpeedX = -ballSpeedX;
+    }
   }
 
   //function which draw table
