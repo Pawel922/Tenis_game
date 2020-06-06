@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  canvas.addEventListener("mousemove", playerPosition);
+
 
   function game() {
     table();
@@ -156,5 +156,15 @@ document.addEventListener("DOMContentLoaded", function () {
     ai();
   }
 
-  setInterval(game, 20);
+  game();
+
+  //start playing the game after 'Enter' key pressed
+  document.addEventListener("keypress", function(e) {
+    if(e.code === 'Enter') {
+      setInterval(game,20);
+    }
+  })
+
+  canvas.addEventListener("mousemove", playerPosition);
+
 })
