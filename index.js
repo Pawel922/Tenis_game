@@ -146,7 +146,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-
+  //function to display information in the middle of screen
+  function displayInfo (content) {
+    ctx.fillStyle = '#000000';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '50pt Ubuntu';
+    ctx.fillText(content, cw / 2, ch / 2);
+  }
 
   function game() {
     table();
@@ -156,8 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ai();
   }
 
-  game();
-
   //start playing the game after 'Enter' key pressed
   document.addEventListener("keypress", function(e) {
     if(e.code === 'Enter') {
@@ -165,6 +170,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })
 
+  game();
+  displayInfo("Press 'Enter' to start")
   canvas.addEventListener("mousemove", playerPosition);
+
+
 
 })
