@@ -6,6 +6,16 @@ body {
   justify-content: center;
   height: 100vh;
   background-color: grey;
+  flex-direction: column;
+}
+
+#scores {
+  font-family:'Ubuntu';
+  font-size: 5vh;
+  display: flex;
+  width: 100vw;
+  justify-content:space-around;
+  margin-bottom: 5vh;
 }
 
 canvas {

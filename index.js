@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
   let ballSpeedX = 5;
   let ballSpeedY = 5;
 
+  //variables for scores
+  let playerScore = 0;
+  let aiScore = 0;
+  let pointScore = false;
+
   //function which draw player racket
   function player() {
     ctx.fillStyle = '#7EA6F8';
@@ -69,9 +74,16 @@ document.addEventListener("DOMContentLoaded", function () {
     ballY += ballSpeedY;
 
     //conditions when ball touches horizontal border
-    if(ballX <= 0 || ballX + ballSize >= cw) {
-      ballSpeedX = -ballSpeedX;
-      speedUp(0.2);
+    if(ballX <= 0) {
+      aiScore ++;
+      document.querySelectorAll('#scores div p span')[1].textContent = aiScore;
+      pointScore = true;
+    }
+
+    if(ballX + ballSize >= cw) {
+      playerScore ++;
+      document.querySelectorAll('#scores div p span')[0].textContent = playerScore;
+      pointScore = true;
     }
 
     //conditions when ball touches vertical border
@@ -151,22 +163,24 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = '#000000';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '50pt Ubuntu';
+    ctx.font = '10vh Ubuntu';
     ctx.fillText(content, cw / 2, ch / 2);
   }
 
   function game() {
-    table();
-    ball();
-    player();
-    aiPosition();
-    ai();
+    if(!pointScore) {
+      table();
+      ball();
+      player();
+      ai();
+      aiPosition();
+    }
   }
 
   //start playing the game after 'Enter' key pressed
   document.addEventListener("keypress", function(e) {
     if(e.code === 'Enter') {
-      setInterval(game,20);
+      interval = setInterval(game,20);
     }
   })
 
