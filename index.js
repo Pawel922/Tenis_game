@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let aiScore = 0;
   let pointScore = false;
 
+  let interval = null;
+
   //function which draw player racket
   function player() {
     ctx.fillStyle = '#7EA6F8';
@@ -174,6 +176,8 @@ document.addEventListener("DOMContentLoaded", function () {
       player();
       ai();
       aiPosition();
+    } else {
+      clearInterval(interval);
     }
   }
 
