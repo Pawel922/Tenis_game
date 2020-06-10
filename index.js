@@ -169,6 +169,30 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillText(content, cw / 2, ch / 2);
   }
 
+  //function to set cookie
+  function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + ";";
+  }
+
+  //function to get cookie 
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+
+
   function game() {
     if(!pointScore) {
       table();
@@ -190,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   game();
   displayInfo("Press 'Enter' to start")
+  setCookie('pawel',1);
   canvas.addEventListener("mousemove", playerPosition);
 
 
