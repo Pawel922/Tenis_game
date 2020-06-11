@@ -34,9 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let ballSpeedX = 5;
   let ballSpeedY = 5;
 
-  //variables for scores
-  let playerScore = 0;
-  let aiScore = 0;
+  //variables for score
   let pointScore = false;
 
   let interval = null;
@@ -77,14 +75,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //conditions when ball touches horizontal border
     if(ballX <= 0) {
+      var aiScore = getCookie('aiScore');
       aiScore ++;
-      document.querySelectorAll('#scores div p span')[1].textContent = aiScore;
+      setCookie('aiScore', aiScore);
       pointScore = true;
     }
 
     if(ballX + ballSize >= cw) {
+      var playerScore = getCookie('playerScore');
       playerScore ++;
-      document.querySelectorAll('#scores div p span')[0].textContent = playerScore;
+      setCookie('playerScore', playerScore);
       pointScore = true;
     }
 
@@ -141,11 +141,11 @@ document.addEventListener("DOMContentLoaded", function () {
       if(aiRacketCenter - ballCenter > 250) {
         aiY <= 0 ? aiY = 0 : aiY -= 10;
       } else if(aiRacketCenter - ballCenter > 100) {
-        aiY <= 0 ? aiY = 0 : aiY -= 5;
+        aiY <= 0 ? aiY = 0 : aiY -= 7;
       } else if(aiRacketCenter - ballCenter < -250) {
         aiY >= ch - racketHeight ? aiY = ch - racketHeight : aiY += 10;
       } else if(aiRacketCenter - ballCenter < -100) {
-        aiY >= ch - racketHeight ? aiY = ch - racketHeight : aiY += 5;
+        aiY >= ch - racketHeight ? aiY = ch - racketHeight : aiY += 7;
       }
     } else if(ballX >= cw /2 ) {
       if(aiRacketCenter - ballCenter > 200) {
@@ -169,12 +169,18 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillText(content, cw / 2, ch / 2);
   }
 
+  //function to display current scores
+  function displayScores() {
+    document.querySelectorAll('#scores div p span')[1].textContent = getCookie('aiScore');
+    document.querySelectorAll('#scores div p span')[0].textContent = getCookie('playerScore');
+  }
+
   //function to set cookie
   function setCookie(cname, cvalue) {
     document.cookie = cname + "=" + cvalue + ";";
   }
 
-  //function to get cookie 
+  //function to get cookie
   function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -202,8 +208,26 @@ document.addEventListener("DOMContentLoaded", function () {
       aiPosition();
     } else {
       clearInterval(interval);
+      setTimeout(function() {
+        document.location.reload();
+      }, 1000);
     }
   }
+
+  if(getCookie('playerScore') == ""){
+    setCookie('playerScore', 0);
+  }
+
+  if(getCookie('aiScore') == ""){
+    setCookie('aiScore', 0);
+  }
+
+
+
+  game();
+  displayInfo("Press 'Enter' to start");
+  displayScores();
+  canvas.addEventListener("mousemove", playerPosition);
 
   //start playing the game after 'Enter' key pressed
   document.addEventListener("keypress", function(e) {
@@ -211,12 +235,6 @@ document.addEventListener("DOMContentLoaded", function () {
       interval = setInterval(game,20);
     }
   })
-
-  game();
-  displayInfo("Press 'Enter' to start")
-  setCookie('pawel',1);
-  canvas.addEventListener("mousemove", playerPosition);
-
 
 
 })
