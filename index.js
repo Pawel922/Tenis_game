@@ -197,6 +197,11 @@ document.addEventListener("DOMContentLoaded", function () {
     return "";
   }
 
+  function resetScores() {
+    setCookie('playerScore', 0);
+    setCookie('aiScore', 0);
+  }
+
 
 
   function game() {
@@ -208,6 +213,20 @@ document.addEventListener("DOMContentLoaded", function () {
       aiPosition();
     } else {
       clearInterval(interval);
+      var playerScore = getCookie('playerScore');
+      var aiScore = getCookie('aiScore');
+      if(playerScore == 3 && aiScore ==3) {
+        displayInfo('Draw!');
+        resetScores();
+      } else if (playerScore == 3) {
+        displayInfo('You win!');
+        resetScores();
+      } else if (aiScore == 3) {
+        displayInfo('You lost!');
+        resetScores();
+      }
+
+      displayScores();
       setTimeout(function() {
         document.location.reload();
       }, 1000);
