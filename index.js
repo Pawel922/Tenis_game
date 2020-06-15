@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.fillStyle = '#000000';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '10vh Ubuntu';
+    ctx.font = '5vh Ubuntu';
     ctx.fillText(content, cw / 2, ch / 2);
   }
 
@@ -215,6 +215,8 @@ document.addEventListener("DOMContentLoaded", function () {
       clearInterval(interval);
       var playerScore = getCookie('playerScore');
       var aiScore = getCookie('aiScore');
+      displayScores();
+
       if(playerScore == 3 && aiScore ==3) {
         displayInfo('Draw!');
         resetScores();
@@ -226,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
         resetScores();
       }
 
-      displayScores();
       setTimeout(function() {
         document.location.reload();
       }, 1000);
@@ -244,14 +245,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   game();
-  displayInfo("Press 'Enter' to start");
+  displayInfo("Press 'Enter' to start, 'R' to reset scores");
   displayScores();
   canvas.addEventListener("mousemove", playerPosition);
 
-  //start playing the game after 'Enter' key pressed
+  //start playing the game after 'Enter' key pressed or reload page after 'R' key pressed
   document.addEventListener("keypress", function(e) {
     if(e.code === 'Enter') {
       interval = setInterval(game,20);
+    } else if (e.code === 'KeyR') {
+      document.location.reload();
+      document.cookie = "playerScore= ; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+      document.cookie = "aiScore= ; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
   })
 
