@@ -1,23 +1,69 @@
-body {
+/* font-family: 'Press Start 2P', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+* {
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: grey;
-  flex-direction: column;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive, sans-serif;
 }
 
-#scores {
-  font-family:'Ubuntu';
-  font-size: 5vh;
+
+.wrap {
   display: flex;
-  width: 100vw;
-  justify-content:space-around;
-  margin-bottom: 5vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: grey;
 }
+
+.scores {
+  width: 1000px;
+  /*container*/
+  display: flex;
+  flex-direction: column;
+  flex-basis: 15vh;
+  text-shadow: 2px 2px 2px crimson;
+}
+
+.scores div {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.scores div p {
+  width: 50%;
+  text-align: center;
+}
+
+.scores div:nth-of-type(1) {
+  font-size: 30px;
+}
+
+.scores div:nth-of-type(2) {
+  font-size: 25px;
+}
+
+/* .counter {
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%);
+} */
 
 canvas {
   border: 2px solid black;
+  margin-bottom: 20px;
+}
+
+.info {
+  flex-basis: 15vh;
+  line-height: 15vh;
+  font-size: 22px;
+  text-shadow: 2px 2px 2px crimson;
 }

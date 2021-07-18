@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //variables which describe rackets placement
   let playerY = ch / 2 - racketHeight / 2;
-  let aiY = ch /2 - racketHeight / 2;
+  let aiY = ch / 2 - racketHeight / 2;
 
   //variables which describe ball speed
   let ballSpeedX = 5;
@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //function which cause that ball moves faster
   function speedUp(step) {
-    if(ballSpeedX > 0 && ballSpeedX < speedMax) {
+    if (ballSpeedX > 0 && ballSpeedX < speedMax) {
       ballSpeedX += step;
     } else if (ballSpeedX < 0 && ballSpeedX > -speedMax) {
       ballSpeedX -= step;
     }
 
-    if(ballSpeedY > 0 && ballSpeedY < speedMax) {
+    if (ballSpeedY > 0 && ballSpeedY < speedMax) {
       ballSpeedY += step;
     } else if (ballSpeedY < 0 && ballSpeedY > -speedMax) {
       ballSpeedY -= step;
@@ -74,35 +74,35 @@ document.addEventListener("DOMContentLoaded", function () {
     ballY += ballSpeedY;
 
     //conditions when ball touches horizontal border
-    if(ballX <= 0) {
+    if (ballX <= 0) {
       var aiScore = getCookie('aiScore');
-      aiScore ++;
+      aiScore++;
       setCookie('aiScore', aiScore);
       pointScore = true;
     }
 
-    if(ballX + ballSize >= cw) {
+    if (ballX + ballSize >= cw) {
       var playerScore = getCookie('playerScore');
-      playerScore ++;
+      playerScore++;
       setCookie('playerScore', playerScore);
       pointScore = true;
     }
 
     //conditions when ball touches vertical border
-    if(ballY <= 0 || ballY + ballSize >= ch) {
+    if (ballY <= 0 || ballY + ballSize >= ch) {
       ballSpeedY = -ballSpeedY;
       speedUp(0.2);
     }
 
     //conditions when ball touches player racket
-    if(ballX <= playerX + racketWidth &&
+    if (ballX <= playerX + racketWidth &&
       ballY - playerY < racketHeight &&
       ballY - playerY > -ballSize) {
-        ballSpeedX = -ballSpeedX;
+      ballSpeedX = -ballSpeedX;
     }
 
     //conditions when ball touches ai rackets
-    if(aiX <= ballX + ballSize &&
+    if (aiX <= ballX + ballSize &&
       ballY - aiY < racketHeight &&
       ballY - aiY > -ballSize) {
       ballSpeedX = -ballSpeedX;
@@ -112,10 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
   //function which draw table
   function table() {
     ctx.fillStyle = '#009900';
-    ctx.fillRect(0,0,cw,ch);
+    ctx.fillRect(0, 0, cw, ch);
     ctx.fillStyle = '#000000';
-    for(let linePosition = 2; linePosition < ch; linePosition += 30) {
-      ctx.fillRect(cw / 2 - lineWidth /2, linePosition, lineWidth, lineHeight);
+    for (let linePosition = 2; linePosition < ch; linePosition += 30) {
+      ctx.fillRect(cw / 2 - lineWidth / 2, linePosition, lineWidth, lineHeight);
     }
   }
 
@@ -123,11 +123,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function playerPosition(event) {
     playerY = event.clientY - canvas.offsetTop - racketHeight / 2;
 
-    if(playerY >= ch - racketHeight) {
+    if (playerY >= ch - racketHeight) {
       playerY = ch - racketHeight;
     }
 
-    if(playerY <= 0) {
+    if (playerY <= 0) {
       playerY = 0;
     }
   }
@@ -137,42 +137,38 @@ document.addEventListener("DOMContentLoaded", function () {
     let ballCenter = ballY + ballSize / 2;
     let aiRacketCenter = aiY + racketHeight / 2;
 
-    if(ballX < cw / 2) {
-      if(aiRacketCenter - ballCenter > 250) {
+    if (ballX < cw / 2) {
+      if (aiRacketCenter - ballCenter > 250) {
         aiY <= 0 ? aiY = 0 : aiY -= 10;
-      } else if(aiRacketCenter - ballCenter > 100) {
+      } else if (aiRacketCenter - ballCenter > 100) {
         aiY <= 0 ? aiY = 0 : aiY -= 7;
-      } else if(aiRacketCenter - ballCenter < -250) {
+      } else if (aiRacketCenter - ballCenter < -250) {
         aiY >= ch - racketHeight ? aiY = ch - racketHeight : aiY += 10;
-      } else if(aiRacketCenter - ballCenter < -100) {
+      } else if (aiRacketCenter - ballCenter < -100) {
         aiY >= ch - racketHeight ? aiY = ch - racketHeight : aiY += 7;
       }
-    } else if(ballX >= cw /2 ) {
-      if(aiRacketCenter - ballCenter > 200) {
+    } else if (ballX >= cw / 2) {
+      if (aiRacketCenter - ballCenter > 200) {
         aiY <= 0 ? aiY = 0 : aiY -= 25;
-      } else if(aiRacketCenter - ballCenter > 25) {
+      } else if (aiRacketCenter - ballCenter > 25) {
         aiY <= 0 ? aiY = 0 : aiY -= 10;
-      } else if(aiRacketCenter - ballCenter < -200) {
+      } else if (aiRacketCenter - ballCenter < -200) {
         aiY >= ch - racketHeight ? aiY = ch - racketHeight : aiY += 25;
-      } else if(aiRacketCenter - ballCenter < -25) {
+      } else if (aiRacketCenter - ballCenter < -25) {
         aiY >= ch - racketHeight ? aiY = ch - racketHeight : aiY += 10;
       }
     }
   }
 
   //function to display information in the middle of screen
-  function displayInfo (content) {
-    ctx.fillStyle = '#000000';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.font = '5vh Ubuntu';
-    ctx.fillText(content, cw / 2, ch / 2);
+  function displayInfo(content) {
+    document.querySelector('.info p').textContent = content;
   }
 
   //function to display current scores
   function displayScores() {
-    document.querySelectorAll('#scores div p span')[1].textContent = getCookie('aiScore');
-    document.querySelectorAll('#scores div p span')[0].textContent = getCookie('playerScore');
+    document.querySelector('.scores div:nth-of-type(2) p + p').textContent = getCookie('aiScore');
+    document.querySelector('.scores div:nth-of-type(2) p').textContent = getCookie('playerScore');
   }
 
   //function to set cookie
@@ -185,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
       while (c.charAt(0) == ' ') {
         c = c.substring(1);
@@ -205,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function game() {
-    if(!pointScore) {
+    if (!pointScore) {
       table();
       ball();
       player();
@@ -217,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var aiScore = getCookie('aiScore');
       displayScores();
 
-      if(playerScore == 3 && aiScore ==3) {
+      if (playerScore == 3 && aiScore == 3) {
         displayInfo('Draw!');
         resetScores();
       } else if (playerScore == 3) {
@@ -228,17 +224,17 @@ document.addEventListener("DOMContentLoaded", function () {
         resetScores();
       }
 
-      setTimeout(function() {
+      setTimeout(function () {
         document.location.reload();
       }, 1000);
     }
   }
 
-  if(getCookie('playerScore') == ""){
+  if (getCookie('playerScore') == "") {
     setCookie('playerScore', 0);
   }
 
-  if(getCookie('aiScore') == ""){
+  if (getCookie('aiScore') == "") {
     setCookie('aiScore', 0);
   }
 
@@ -250,11 +246,13 @@ document.addEventListener("DOMContentLoaded", function () {
   canvas.addEventListener("mousemove", playerPosition);
 
   //start playing the game after 'Enter' key pressed or reload page after 'R' key pressed
-  document.addEventListener("keypress", function(e) {
-    if(e.code === 'Enter') {
-      interval = setInterval(game,20);
+  document.addEventListener("keypress", function (e) {
+    if (e.code === 'Enter') {
+      displayInfo("");
+      interval = setInterval(game, 20);
     } else if (e.code === 'KeyR') {
       document.location.reload();
+      displayInfo("");
       document.cookie = "playerScore= ; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       document.cookie = "aiScore= ; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     }
