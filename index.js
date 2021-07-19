@@ -198,6 +198,12 @@ document.addEventListener("DOMContentLoaded", function () {
     setCookie('aiScore', 0);
   }
 
+  function counting() {
+    document.querySelector('.counter span:nth-child(1)').classList.add("three");
+    document.querySelector('.counter span:nth-child(2)').classList.add("two");
+    document.querySelector('.counter span:nth-child(3)').classList.add("one");
+  }
+
 
 
   function game() {
@@ -249,7 +255,10 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("keypress", function (e) {
     if (e.code === 'Enter') {
       displayInfo("");
-      interval = setInterval(game, 20);
+      counting();
+      setTimeout(() => {
+        interval = setInterval(game, 20);
+      }, 3000)
     } else if (e.code === 'KeyR') {
       document.location.reload();
       displayInfo("");
